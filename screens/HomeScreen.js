@@ -64,7 +64,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <React.Fragment>
-        {/* <View style={{ flex: 0.2 }}>
+        <View style={{ flex: 0.2 }}>
           <Container>
             <Header>
               <Body>
@@ -72,8 +72,8 @@ export default class HomeScreen extends React.Component {
               </Body>
             </Header>
           </Container>
-        </View> */}
-        <View style={{ backgroundColor: "#ffffff" }}>
+        </View>
+        {/* <View style={{ backgroundColor: "#ffffff" }}>
           <Text
             style={{
               justifyContent: "center",
@@ -85,7 +85,7 @@ export default class HomeScreen extends React.Component {
           >
             DietAR
           </Text>
-        </View>
+        </View> */}
         <View style={{ flex: 0.7 }}>
           <BarCodeScanner
             onBarCodeScanned={this.handleBarCodeScanned}
@@ -235,20 +235,24 @@ export default class HomeScreen extends React.Component {
     if (this.state.previousBarcodeData !== data) {
       this.setState({ previousBarcodeData: data });
       const url = `https://world.openfoodfacts.org/api/v0/product/${data}.json`;
-      alert(url);
       let response = {};
       try {
         response = await fetch(url);
       } catch (ex) {
         console.error(ex);
       }
-      const result = await JSON.parse(response);
+      const result = await response.json();
       if (result.status === 0) {
         alert("Not a HotDog!");
       } else {
-        alert(
-          `Lenght of Allergens! ${result.product.allergens_hierarchy.length}`
-        );
+        // alert(
+        //   `Lenght of Allergens! ${result.product.allergens_hierarchy.length}`
+        // );
+        result.product.allergens_hierarchy.map(all => {
+          if (all === "en:milk") {
+            this.setState({ milkState: "✔️" });
+          }
+        });
       }
     }
   };
