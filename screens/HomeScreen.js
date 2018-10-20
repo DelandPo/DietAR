@@ -236,8 +236,9 @@ export default class HomeScreen extends React.Component {
       this.setState({ previousBarcodeData: data });
       const url = `https://world.openfoodfacts.org/api/v0/product/${data}.json`;
       alert(url);
+      let response = {};
       try {
-        const response = await fetch(url);
+        response = await fetch(url);
       } catch (ex) {
         console.error(ex);
       }
