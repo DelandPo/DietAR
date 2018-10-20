@@ -26,7 +26,7 @@ import {
   Body,
   Title
 } from "native-base";
-
+// import rp from "request-promise";
 export default class HomeScreen extends React.Component {
   state = {
     hasCameraPermission: null,
@@ -235,15 +235,20 @@ export default class HomeScreen extends React.Component {
     if (this.state.previousBarcodeData !== data) {
       this.setState({ previousBarcodeData: data });
       const url = `https://world.openfoodfacts.org/api/v0/product/${data}.json`;
-      const response = await fetch(url);
-      const result = await JSON.parse(response);
-      if (result.status === 0) {
-        alert("Not a HotDog!");
-      } else {
-        alert(
-          `Lenght of Allergens! ${result.product.allergens_hierarchy.length}`
-        );
+      alert(url);
+      try {
+        const response = await fetch(url);
+      } catch (ex) {
+        console.error(ex);
       }
+      // const result = await JSON.parse(response);
+      // if (result.status === 0) {
+      //   alert("Not a HotDog!");
+      // } else {
+      //   alert(
+      //     `Lenght of Allergens! ${result.product.allergens_hierarchy.length}`
+      //   );
+      // }
     }
   };
 }
