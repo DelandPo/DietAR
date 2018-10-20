@@ -241,11 +241,20 @@ export default class HomeScreen extends React.Component {
         // alert(
         //   `Lenght of Allergens! ${result.product.allergens_hierarchy.length}`
         // );
-        result.product.allergens_hierarchy.map(all => {
-          if (all === "en:milk") {
-            this.setState({ milkState: "✔️" });
-          }
-        });
+        var allergens = result.product.allergens_hierarchy;
+        this.setState({resultArray:allergens.map(s => s.substring(3))});
+
+        var name = result.product.product_name.toLowerCase().split(' ').map(function(word) {
+          return word.replace(word[0], word[0].toUpperCase());
+        }).join(' ');
+
+        this.setState({ recommendationStatus:name });
+
+        // result.product.allergens_hierarchy.map(all => {
+        //   if (all === "en:milk") {
+        //     this.setState({ milkState: "✔️" });
+        //   }
+        // });
       }
     }
   };
