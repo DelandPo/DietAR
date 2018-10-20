@@ -33,6 +33,11 @@ export default class HomeScreen extends React.Component {
     alreadyRendered: false,
     checkMark: "✔️",
     crossMark: "❌",
+    smileyFace: "😊",
+    neutralFace: "😐",
+    sadFace: "🙁",
+    calories: "",
+    recommendationStatus: "",
     eggState: "",
     milkState: "",
     peanutState: "",
@@ -48,7 +53,8 @@ export default class HomeScreen extends React.Component {
     sugarState: "",
     sodiumState: "",
     palmOilState: "",
-    msgState: ""
+    msgState: "",
+    previousBarcodeData: ""
   };
 
   async componentWillMount() {
@@ -90,7 +96,44 @@ export default class HomeScreen extends React.Component {
           <Content padder>
             <Grid>
               <Col
-                style={{ backgroundColor: "#ffffff", height: 400, width: 139 }}
+                style={{ backgroundColor: "#ffffff", height: 80, width: 139 }}
+              >
+                <Card>
+                  <CardItem header bordered>
+                    <Text>Calories</Text>
+                  </CardItem>
+                  <List>
+                    <ListItem>
+                      <Text style={{ fontSize: 30 }}>
+                        {this.state.calories}
+                      </Text>
+                    </ListItem>
+                  </List>
+                </Card>
+              </Col>
+              <Col
+                style={{
+                  backgroundColor: "#ffffff",
+                  height: 120
+                }}
+              >
+                <Card>
+                  <CardItem header bordered>
+                    <Text>Recommendation</Text>
+                  </CardItem>
+                  <List>
+                    <ListItem>
+                      <Text style={{ fontSize: 30 }}>
+                        {this.state.recommendationStatus}
+                      </Text>
+                    </ListItem>
+                  </List>
+                </Card>
+              </Col>
+            </Grid>
+            <Grid>
+              <Col
+                style={{ backgroundColor: "#ffffff", height: 420, width: 139 }}
               >
                 <Card>
                   <CardItem header bordered>
@@ -182,49 +225,25 @@ export default class HomeScreen extends React.Component {
                 </Card>
               </Col>
             </Grid>
-            <Grid style={{ marginTop: 20 }}>
-              <Col
-                style={{ backgroundColor: "#ffffff", height: 200, width: 139 }}
-              >
-                <Card>
-                  <CardItem header bordered>
-                    <Text>Calories</Text>
-                  </CardItem>
-                  <List>
-                    <ListItem>
-                      <Text style={{ fontSize: 50 }}>160</Text>
-                    </ListItem>
-                  </List>
-                </Card>
-              </Col>
-              <Col
-                style={{
-                  backgroundColor: "#ffffff",
-                  height: 200
-                }}
-              >
-                <Card>
-                  <CardItem header bordered>
-                    <Text>Recommendation</Text>
-                  </CardItem>
-                  <List>
-                    <ListItem>
-                      <Text style={{ fontSize: 50 }}>😃</Text>
-                    </ListItem>
-                  </List>
-                </Card>
-              </Col>
-            </Grid>
           </Content>
         </Container>
       </React.Fragment>
     );
   }
 
-  handleBarCodeScanned = ({ type, data }) => {
-    if (this.state.alreadyRendered === false) {
-      this.setState({ alreadyRendered: true });
-      alert(`Bar code with type has been scanned!`);
+  handleBarCodeScanned = async ({ type, data }) => {
+    if (this.state.previousBarcodeData !== data) {
+      this.setState({ previousBarcodeData: data });
+      const url = `https://world.openfoodfacts.org/api/v0/product/${data}.json`;
+      const response = await fetch(url);
+      const result = await JSON.parse(response);
+      if (result.status === 0) {
+        alert("Not a HotDog!");
+      } else {
+        alert(
+          `Lenght of Allergens! ${result.product.allergens_hierarchy.length}`
+        );
+      }
     }
   };
 }
