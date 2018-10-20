@@ -28,6 +28,9 @@ import {
 } from "native-base";
 // import rp from "request-promise";
 export default class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: "DietAR"
+  };
   state = {
     hasCameraPermission: null,
     alreadyRendered: false,
@@ -64,28 +67,6 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <View style={{ flex: 0.2 }}>
-          <Container>
-            <Header>
-              <Body>
-                <Title>DietAR</Title>
-              </Body>
-            </Header>
-          </Container>
-        </View>
-        {/* <View style={{ backgroundColor: "#ffffff" }}>
-          <Text
-            style={{
-              justifyContent: "center",
-              alignSelf: "center",
-              fontSize: 20,
-              textAlignVertical: "center",
-              backgroundColor: "#ffffff"
-            }}
-          >
-            DietAR
-          </Text>
-        </View> */}
         <View style={{ flex: 0.7 }}>
           <BarCodeScanner
             onBarCodeScanned={this.handleBarCodeScanned}
