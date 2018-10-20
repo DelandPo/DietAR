@@ -5,7 +5,6 @@ import {
   Header,
   Content,
   ListItem,
-  CheckBox,
   Body,
   Form,
   Label,
@@ -14,7 +13,19 @@ import {
   List
 } from "native-base";
 
+import { CheckBox } from "react-native-elements";
 export default class ProfileScreen extends Component {
+  state = {
+    eggCheck: false,
+    milkCheck: true,
+    peanutCheck: false,
+    treenutCheck: true,
+    fishCheck: false,
+    shellfishCheck: true,
+    glutenCheck: true,
+    soyCheck: false
+  };
+
   render() {
     return (
       <Container>
@@ -36,12 +47,16 @@ export default class ProfileScreen extends Component {
 
           <Form>
             <Item floatingLabel>
-              <Label>Height(inches)</Label>
+              <Label>Height (inches)</Label>
               <Input value={`70`} />
             </Item>
             <Item floatingLabel last>
-              <Label>Weight(lbs)</Label>
+              <Label>Weight (lbs)</Label>
               <Input value={"150"} />
+            </Item>
+            <Item floatingLabel last>
+              <Label>Required Calories (kcal)</Label>
+              <Input value={"2500"} />
             </Item>
           </Form>
           <List>
@@ -49,54 +64,108 @@ export default class ProfileScreen extends Component {
               <Text>Allergies</Text>
             </ListItem>
             <ListItem style={{ marginTop: 10 }}>
-              <CheckBox checked={true} />
+              <CheckBox
+                checked={this.state.eggCheck}
+                onPress={() =>
+                  this.setState({ eggCheck: !this.state.eggCheck })
+                }
+              />
               <Body>
                 <Text>Eggs</Text>
               </Body>
             </ListItem>
             <ListItem>
-              <CheckBox checked={false} />
+              <CheckBox
+                checked={this.state.milkCheck}
+                onPress={() =>
+                  this.setState({ milkCheck: !this.state.milkCheck })
+                }
+              />
               <Body>
                 <Text>Milk</Text>
               </Body>
             </ListItem>
             <ListItem>
-              <CheckBox checked={false} color="green" />
+              <CheckBox
+                checked={this.state.peanutCheck}
+                onPress={() =>
+                  this.setState({ peanutCheck: !this.state.peanutCheck })
+                }
+                color="green"
+              />
               <Body>
                 <Text>Peanuts</Text>
               </Body>
             </ListItem>
             <ListItem>
-              <CheckBox checked={false} color="green" />
+              <CheckBox
+                checked={this.state.treenutCheck}
+                onPress={() =>
+                  this.setState({ treenutCheck: !this.state.treenutCheck })
+                }
+                color="green"
+              />
               <Body>
                 <Text>Tree Nuts</Text>
               </Body>
             </ListItem>{" "}
             <ListItem>
-              <CheckBox checked={false} color="green" />
+              <CheckBox
+                onPress={() =>
+                  this.setState({ fishCheck: !this.state.fishCheck })
+                }
+                checked={this.state.fishCheck}
+                color="green"
+              />
               <Body>
                 <Text>Fish</Text>
               </Body>
             </ListItem>{" "}
             <ListItem>
-              <CheckBox checked={false} color="green" />
+              <CheckBox
+                checked={this.state.shellfishCheck}
+                onPress={() =>
+                  this.setState({ shellfishCheck: !this.state.shellfishCheck })
+                }
+                color="green"
+              />
               <Body>
                 <Text>Shellfish</Text>
               </Body>
             </ListItem>{" "}
             <ListItem>
-              <CheckBox checked={false} color="green" />
+              <CheckBox
+                checked={this.state.glutenCheck}
+                color="green"
+                onPress={() =>
+                  this.setState({ glutenCheck: !this.state.glutenCheck })
+                }
+              />
               <Body>
                 <Text>Gluten</Text>
               </Body>
             </ListItem>{" "}
             <ListItem>
-              <CheckBox checked={false} color="green" />
+              <CheckBox
+                checked={this.state.soyCheck}
+                onPress={() =>
+                  this.setState({ soyCheck: !this.state.soyCheck })
+                }
+                color="green"
+              />
               <Body>
                 <Text>Soy</Text>
               </Body>
             </ListItem>
           </List>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => {
+              alert("Sucess! Your informations is updated!");
+            }}
+          >
+            <Text>Save</Text>
+          </TouchableOpacity>
         </Content>
       </Container>
     );
@@ -156,6 +225,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
     marginBottom: 20,
     width: 250,
     borderRadius: 30,
