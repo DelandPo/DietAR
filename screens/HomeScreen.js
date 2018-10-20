@@ -122,7 +122,7 @@ export default class HomeScreen extends React.Component {
                   <CardItem header bordered>
                     <Text>Allergies </Text>
                   </CardItem>
-                  <List
+                  {/* <List
                     dataArray={this.state.resultArray}
                     renderRow={(item, index) => (
                       <ListItem>
@@ -131,8 +131,9 @@ export default class HomeScreen extends React.Component {
                         </Body>
                       </ListItem>
                     )}
-                  >
-                    {/* <ListItem>
+                  > */}
+                  <List>
+                    <ListItem>
                       <Text>
                         {this.state.eggState}
                         Eggs{" "}
@@ -158,7 +159,7 @@ export default class HomeScreen extends React.Component {
                     </ListItem>
                     <ListItem>
                       <Text>{this.state.soyState} Soy</Text>
-                    </ListItem> */}
+                    </ListItem>
                   </List>
                 </Card>
               </Col>
