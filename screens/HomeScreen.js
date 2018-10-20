@@ -241,14 +241,14 @@ export default class HomeScreen extends React.Component {
       } catch (ex) {
         console.error(ex);
       }
-      // const result = await JSON.parse(response);
-      // if (result.status === 0) {
-      //   alert("Not a HotDog!");
-      // } else {
-      //   alert(
-      //     `Lenght of Allergens! ${result.product.allergens_hierarchy.length}`
-      //   );
-      // }
+      const result = await JSON.parse(response);
+      if (result.status === 0) {
+        alert("Not a HotDog!");
+      } else {
+        alert(
+          `Lenght of Allergens! ${result.product.allergens_hierarchy.length}`
+        );
+      }
     }
   };
 }
