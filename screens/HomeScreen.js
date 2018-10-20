@@ -24,7 +24,8 @@ import {
   List,
   ListItem,
   Body,
-  Title
+  Title,
+  Item
 } from "native-base";
 // import rp from "request-promise";
 export default class HomeScreen extends React.Component {
@@ -57,7 +58,8 @@ export default class HomeScreen extends React.Component {
     sodiumState: "",
     palmOilState: "",
     msgState: "",
-    previousBarcodeData: ""
+    previousBarcodeData: "",
+    resultArray: ["Ananda", "Poudel", "Callan"]
   };
 
   async componentWillMount() {
@@ -120,8 +122,17 @@ export default class HomeScreen extends React.Component {
                   <CardItem header bordered>
                     <Text>Allergies </Text>
                   </CardItem>
-                  <List>
-                    <ListItem>
+                  <List
+                    dataArray={this.state.resultArray}
+                    renderRow={(item, index) => (
+                      <ListItem>
+                        <Body>
+                          <Text>{item}</Text>
+                        </Body>
+                      </ListItem>
+                    )}
+                  >
+                    {/* <ListItem>
                       <Text>
                         {this.state.eggState}
                         Eggs{" "}
@@ -147,7 +158,7 @@ export default class HomeScreen extends React.Component {
                     </ListItem>
                     <ListItem>
                       <Text>{this.state.soyState} Soy</Text>
-                    </ListItem>
+                    </ListItem> */}
                   </List>
                 </Card>
               </Col>
