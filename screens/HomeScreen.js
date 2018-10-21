@@ -252,23 +252,21 @@ export default class HomeScreen extends React.Component {
       if (result.status === 0) {
         alert("Not a HotDog!");
       } else {
-        // alert(
-        //   `Lenght of Allergens! ${result.product.allergens_hierarchy.length}`
-        // );
         var allergens = result.product.allergens_hierarchy;
-        this.setState({resultArray:allergens.map(s => s.substring(3))});
+        if (allergens.length !== 0) {
+          var temp = allergens.map(s => s.substring(3).toLowerCase().split(' ').map(function(word) {
+            return word.replace(word[0], word[0].toUpperCase());
+          }).join(' '));
+          this.setState({resultArray:temp});
+        } else {
+          this.setState({resultArray:[]});
+        }
 
         var name = result.product.product_name.toLowerCase().split(' ').map(function(word) {
           return word.replace(word[0], word[0].toUpperCase());
         }).join(' ');
 
         this.setState({ productName:name });
-
-        // result.product.allergens_hierarchy.map(all => {
-        //   if (all === "en:milk") {
-        //     this.setState({ milkState: "✔️" });
-        //   }
-        // });
       }
     }
   };
