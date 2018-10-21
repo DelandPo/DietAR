@@ -27,7 +27,7 @@ import {
   Title,
   Item
 } from "native-base";
-
+const fs = require("fs");
 // import rp from "request-promise";
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -77,7 +77,8 @@ export default class HomeScreen extends React.Component {
       "Artificial Flavors",
       "Sodium",
       "Sugar"
-    ]
+    ],
+    userProfile: null
   };
 
   async componentWillMount() {
@@ -224,6 +225,9 @@ export default class HomeScreen extends React.Component {
   }
 
   handleBarCodeScanned = async ({ type, data }) => {
+    let rawdata = fs.readFileSync("database.json");
+    let student = JSON.parse(rawdata);
+    console.error(student);
     if (this.state.previousBarcodeData !== data) {
       this.setState({ previousBarcodeData: data });
       const url = `https://world.openfoodfacts.org/api/v0/product/${data}.json`;

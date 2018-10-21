@@ -14,6 +14,7 @@ import {
 } from "native-base";
 
 import { CheckBox } from "react-native-elements";
+const fs = require("fs");
 export default class ProfileScreen extends Component {
   state = {
     eggCheck: false,
@@ -161,7 +162,17 @@ export default class ProfileScreen extends Component {
           <TouchableOpacity
             style={styles.buttonContainer}
             onPress={() => {
-              alert("Sucess! Your informations is updated!");
+              fs.writeFile(
+                "database.json",
+                JSON.stringify(this.state),
+                function(err) {
+                  if (err) {
+                    alert("Could not update your info!");
+                  } else {
+                    alert("Sucess! Your informations is updated!");
+                  }
+                }
+              );
             }}
           >
             <Text>Save</Text>
