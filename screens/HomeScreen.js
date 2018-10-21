@@ -27,7 +27,7 @@ import {
   Title,
   Item
 } from "native-base";
-const fs = require("fs");
+import FileSystem from "react-native-filesystem";
 // import rp from "request-promise";
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -225,10 +225,11 @@ export default class HomeScreen extends React.Component {
   }
 
   handleBarCodeScanned = async ({ type, data }) => {
-    let rawdata = fs.readFileSync("database.json");
-    let student = JSON.parse(rawdata);
-    console.error(student);
     if (this.state.previousBarcodeData !== data) {
+      if (!this.state.userProfile) {
+        const preferences = await getData();
+        this.setState({ userProfile: preferences });
+      }
       this.setState({ previousBarcodeData: data });
       const url = `https://world.openfoodfacts.org/api/v0/product/${data}.json`;
       let response = {};
@@ -337,6 +338,18 @@ export default class HomeScreen extends React.Component {
       }
     }
   };
+}
+
+async function getData() {
+  const url = `https://presentar-61bff.firebaseio.com/hackHarvard/.json`;
+  let response = {};
+  try {
+    response = await fetch(url);
+  } catch (ex) {
+    console.error(ex);
+  }
+  const result = await response.json();
+  return result;
 }
 
 const styles = StyleSheet.create({

@@ -24,11 +24,13 @@
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-elements": "^0.19.1",
+    "react-native-filesystem": "^0.1.0",
     "react-navigation": "^2.16.0",
     "request-promise": "^4.2.2",
     "start": "^5.1.0",
     "three": "^0.97.0",
-    "three-fbx-loader": "^1.0.3"
+    "three-fbx-loader": "^1.0.3",
+    "write-json-file": "^3.0.2"
   },
   "devDependencies": {
     "jest-expo": "30.0.0"

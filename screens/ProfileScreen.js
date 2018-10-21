@@ -14,7 +14,6 @@ import {
 } from "native-base";
 
 import { CheckBox } from "react-native-elements";
-const fs = require("fs");
 export default class ProfileScreen extends Component {
   state = {
     eggCheck: false,
@@ -161,18 +160,8 @@ export default class ProfileScreen extends Component {
           </List>
           <TouchableOpacity
             style={styles.buttonContainer}
-            onPress={() => {
-              fs.writeFile(
-                "database.json",
-                JSON.stringify(this.state),
-                function(err) {
-                  if (err) {
-                    alert("Could not update your info!");
-                  } else {
-                    alert("Sucess! Your informations is updated!");
-                  }
-                }
-              );
+            onPress={async () => {
+              this.sendData();
             }}
           >
             <Text>Save</Text>
@@ -180,6 +169,18 @@ export default class ProfileScreen extends Component {
         </Content>
       </Container>
     );
+  }
+  async sendData() {
+    fetch("https://presentar-61bff.firebaseio.com/hackHarvard/.json", {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ result: this.state })
+    });
+
+    alert("Sucess! Information has been updated");
   }
 }
 
