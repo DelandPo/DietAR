@@ -6,7 +6,7 @@ export default class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: "DietAR",
     headerStyle: {
-      backgroundColor: "#BAA1A7"
+      backgroundColor: "#BAF2BB"
     }
   };
 
