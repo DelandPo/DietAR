@@ -36,12 +36,13 @@ export default class HomeScreen extends React.Component {
   state = {
     hasCameraPermission: null,
     alreadyRendered: false,
-    checkMark: "✔️",
+    checkMark: "✅",
     crossMark: "❌",
     smileyFace: "😊",
     neutralFace: "😐",
     sadFace: "🙁",
     calories: "",
+    productName: "",
     recommendationStatus: "",
     eggState: "",
     milkState: "",
@@ -60,7 +61,23 @@ export default class HomeScreen extends React.Component {
     palmOilState: "",
     msgState: "",
     previousBarcodeData: "",
-    resultArray: ["Ananda", "Poudel", "Callan"]
+    resultArray: [
+      "Milk",
+      "Eggs",
+      "Fish",
+      "Soy",
+      "Shellfish",
+      "Peanuts",
+      "Tree Nuts",
+      "Gluten"
+    ],
+    healthArray: [
+      "Trans Fat",
+      "Corn Syrup",
+      "Artificial Flavors",
+      "Sodium",
+      "Sugar"
+    ]
   };
 
   async componentWillMount() {
@@ -79,35 +96,66 @@ export default class HomeScreen extends React.Component {
         <Container>
           <Content padder>
             <Grid>
-              <Col
-                style={{ backgroundColor: "#ffffff", height: 80, width: 139 }}
-              >
-                <Card>
-                  <CardItem header bordered>
-                    <Text>Calories</Text>
+              <Card style={{ backgroundColor: "#BAF2BB", width: 350 }}>
+                <CardItem
+                  style={{ backgroundColor: "#BAF2BB" }}
+                  header
+                  bordered
+                >
+                  <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                    Product Name
+                  </Text>
+                </CardItem>
+                <List>
+                  <ListItem>
+                    <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                      {this.state.productName}
+                    </Text>
+                  </ListItem>
+                </List>
+              </Card>
+            </Grid>
+            <Grid>
+              <Col style={{ backgroundColor: "#ffffff", width: 140 }}>
+                <Card style={{ backgroundColor: "#BAF2D8" }}>
+                  <CardItem
+                    style={{ backgroundColor: "#BAF2D8" }}
+                    header
+                    bordered
+                  >
+                    <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                      Calories
+                    </Text>
                   </CardItem>
                   <List>
                     <ListItem>
-                      <Text style={{ fontSize: 30 }}>
+                      <Text style={{ fontSize: 30, color: "#837E7C" }}>
                         {this.state.calories}
                       </Text>
                     </ListItem>
                   </List>
                 </Card>
               </Col>
-              <Col
-                style={{
-                  backgroundColor: "#ffffff",
-                  height: 120
-                }}
-              >
-                <Card>
-                  <CardItem header bordered>
-                    <Text>Recommendation</Text>
+              <Col style={{ backgroundColor: "#ffffff" }}>
+                <Card style={{ backgroundColor: "#BAD7F2" }}>
+                  <CardItem
+                    style={{ backgroundColor: "#BAD7F2" }}
+                    header
+                    bordered
+                  >
+                    <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                      Recommendation
+                    </Text>
                   </CardItem>
                   <List>
                     <ListItem>
-                      <Text style={{ fontSize: 30 }}>
+                      <Text
+                        style={{
+                          fontSize: 30,
+                          color: "#837E7C",
+                          alignItems: "center"
+                        }}
+                      >
                         {this.state.recommendationStatus}
                       </Text>
                     </ListItem>
@@ -116,106 +164,56 @@ export default class HomeScreen extends React.Component {
               </Col>
             </Grid>
             <Grid>
-              <Col
-                style={{ backgroundColor: "#ffffff", height: 420, width: 139 }}
-              >
-                <Card>
-                  <CardItem header bordered>
-                    <Text>Allergies </Text>
+              <Col style={{ backgroundColor: "#ffffff" }}>
+                <Card style={{ backgroundColor: "#F2BAC9" }}>
+                  <CardItem
+                    style={{ backgroundColor: "#F2BAC9" }}
+                    header
+                    bordered
+                  >
+                    <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                      Allergens{" "}
+                    </Text>
                   </CardItem>
-                  {/* <List
+                  <List
                     dataArray={this.state.resultArray}
                     renderRow={(item, index) => (
                       <ListItem>
                         <Body>
-                          <Text>{item}</Text>
+                          <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                            {item}
+                          </Text>
                         </Body>
                       </ListItem>
                     )}
-                  > */}
-                  <List>
-                    <ListItem>
-                      <Text>
-                        {this.state.eggState}
-                        Eggs{" "}
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.milkState} Milk</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.peanutState} Peanuts</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.treeNutState} Tree Nuts</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.fishState} Fish</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.shellFishState} Shellfish</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.gluetenState} Gluten</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.soyState} Soy</Text>
-                    </ListItem>
-                  </List>
+                  />
                 </Card>
               </Col>
-              <Col style={{ backgroundColor: "#ffffff", height: 400 }}>
-                <Card>
-                  <CardItem header bordered>
-                    <Text>Healthiness</Text>
+            </Grid>
+            <Grid>
+              <Col style={{ backgroundColor: "#ffffff" }}>
+                <Card style={{ backgroundColor: "#F2E2BA" }}>
+                  <CardItem
+                    style={{ backgroundColor: "#F2E2BA" }}
+                    header
+                    bordered
+                  >
+                    <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                      Unhealthy Ingredients
+                    </Text>
                   </CardItem>
-                  <List>
-                    <ListItem>
-                      <Text>
-                        {this.state.transFatState}
-                        Trans Fat{" "}
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>
-                        {this.state.refinedGrainState}
-                        Refined Grains
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>
-                        {this.state.syrupState}
-                        Corn Syrup
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>
-                        {this.state.palmOilState}
-                        Palm Oil
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>
-                        {this.state.msgState}
-                        MSG
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>
-                        {this.state.sweetnerState}
-                        Artificial Sweetner
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>
-                        {this.state.sodiumState}
-                        Sodium
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.sugarState} Sugar</Text>
-                    </ListItem>
-                  </List>
+                  <List
+                    dataArray={this.state.healthArray}
+                    renderRow={(item, index) => (
+                      <ListItem>
+                        <Body>
+                          <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                            {item}
+                          </Text>
+                        </Body>
+                      </ListItem>
+                    )}
+                  />
                 </Card>
               </Col>
             </Grid>
@@ -239,11 +237,26 @@ export default class HomeScreen extends React.Component {
       if (result.status === 0) {
         alert("Not a HotDog!");
       } else {
-        // alert(
-        //   `Lenght of Allergens! ${result.product.allergens_hierarchy.length}`
-        // );
-        var allergens = result.product.allergens_hierarchy;
-        this.setState({ resultArray: allergens.map(s => s.substring(3)) });
+        try {
+          var allergens = result.product.allergens_hierarchy;
+          if (allergens.length !== 0) {
+            var temp = allergens.map(s =>
+              s
+                .substring(3)
+                .toLowerCase()
+                .split(" ")
+                .map(function(word) {
+                  return word.replace(word[0], word[0].toUpperCase());
+                })
+                .join(" ")
+            );
+            this.setState({ resultArray: temp });
+          } else {
+            this.setState({ resultArray: ["None"] });
+          }
+        } catch (ex) {
+          //do nothing
+        }
 
         var name = result.product.product_name
           .toLowerCase()
@@ -253,13 +266,70 @@ export default class HomeScreen extends React.Component {
           })
           .join(" ");
 
-        this.setState({ recommendationStatus: name });
+        this.setState({ productName: name });
 
-        // result.product.allergens_hierarchy.map(all => {
-        //   if (all === "en:milk") {
-        //     this.setState({ milkState: "✔️" });
-        //   }
-        // });
+        var cal = result.product.nutriments.energy_value;
+        try {
+          result.product.nutriments.energy_value.toLowerCase();
+        } catch (ex) {
+          cal = 0;
+        }
+        this.setState({ calories: cal });
+
+        //--------------------
+
+        var healths = [];
+        var hcount = 0;
+        // if (parseInt(result.product.nutriments.trans-fat, 10) !== 0) {
+        //   healths.push("Trans Fat");
+        // }
+        if (parseInt(result.product.nutriments.sugars_value, 10) > 9) {
+          healths.push("High Sugar");
+          hcount++;
+        }
+        if (
+          parseInt(result.product.nutriments.sodium_value, 10) > 100 &&
+          result.product.nutriments.sodium_unit == "mg"
+        ) {
+          healths.push("High Sodium");
+          hcount++;
+        }
+        try {
+          if (
+            result.product.ingredients_text_en
+              .toLowerCase()
+              .includes("artificial flavor")
+          ) {
+            healths.push("Artificial Flavors");
+            hcount += 2;
+          }
+          if (
+            result.product.ingredients_text_en
+              .toLowerCase()
+              .includes("corn syrup")
+          ) {
+            healths.push("Corn Syrup");
+            hcount += 3;
+          }
+        } catch (ex) {
+          //do nothing
+        }
+
+        if (hcount === 0) {
+          this.setState({ healthArray: ["None"] });
+          this.setState({ recommendationStatus: "😃Great" });
+        } else {
+          this.setState({ healthArray: healths });
+          if (hcount === 1 || hcount === 2) {
+            this.setState({ recommendationStatus: "😊Good" });
+          } else if (hcount === 3) {
+            this.setState({ recommendationStatus: "😐Ok" });
+          } else {
+            this.setState({ recommendationStatus: "🙁Poor" });
+          }
+        }
+
+        //--------------------
       }
     }
   };

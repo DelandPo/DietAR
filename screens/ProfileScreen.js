@@ -17,12 +17,12 @@ import { CheckBox } from "react-native-elements";
 export default class ProfileScreen extends Component {
   state = {
     eggCheck: false,
-    milkCheck: true,
+    milkCheck: false,
     peanutCheck: false,
-    treenutCheck: true,
+    treenutCheck: false,
     fishCheck: false,
-    shellfishCheck: true,
-    glutenCheck: true,
+    shellfishCheck: false,
+    glutenCheck: false,
     soyCheck: false
   };
 
@@ -174,7 +174,7 @@ export default class ProfileScreen extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#00BFFF",
+    backgroundColor: "#BAF2BB",
     height: 200
   },
   avatar: {
@@ -229,6 +229,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: 250,
     borderRadius: 30,
-    backgroundColor: "#00BFFF"
+    backgroundColor: "#BAD7F2"
   }
 });
