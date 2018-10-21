@@ -189,14 +189,18 @@ export default class HomeScreen extends React.Component {
       if (result.status === 0) {
         alert("Not a HotDog!");
       } else {
-        var allergens = result.product.allergens_hierarchy;
-        if (allergens.length !== 0) {
-          var temp = allergens.map(s => s.substring(3).toLowerCase().split(' ').map(function(word) {
-            return word.replace(word[0], word[0].toUpperCase());
-          }).join(' '));
-          this.setState({resultArray:temp});
-        } else {
-          this.setState({resultArray:["None"]});
+        try {
+          var allergens = result.product.allergens_hierarchy;
+          if (allergens.length !== 0) {
+            var temp = allergens.map(s => s.substring(3).toLowerCase().split(' ').map(function(word) {
+              return word.replace(word[0], word[0].toUpperCase());
+            }).join(' '));
+            this.setState({resultArray:temp});
+          } else {
+            this.setState({resultArray:["None"]});
+          }
+        } catch(ex) {
+          //do nothing
         }
 
         var name = result.product.product_name.toLowerCase().split(' ').map(function(word) {
