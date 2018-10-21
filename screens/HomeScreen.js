@@ -60,8 +60,8 @@ export default class HomeScreen extends React.Component {
     palmOilState: "",
     msgState: "",
     previousBarcodeData: "",
-    resultArray: ["Milk", "Eggs", "Fish", "Soy", "Shellfish", "Peanuts", "Tree Nuts", "Gluten"]
-
+    resultArray: ["Milk", "Eggs", "Fish", "Soy", "Shellfish", "Peanuts", "Tree Nuts", "Gluten"],
+    healthArray: ["Trans Fat", "Corn Syrup", "Artificial Flavors", "Sodium", "Sugar"]
   };
 
   async componentWillMount() {
@@ -100,7 +100,7 @@ export default class HomeScreen extends React.Component {
               >
                 <Card>
                   <CardItem header bordered>
-                    <Text>Calories</Text>
+                    <Text>Calories </Text>
                   </CardItem>
                   <List>
                     <ListItem>
@@ -147,34 +147,7 @@ export default class HomeScreen extends React.Component {
                       </ListItem>
                     )}
                     >
-                    {/* <ListItem>
-                      <Text>
-                        {this.state.eggState}
-                        Eggs{" "}
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.milkState} Milk</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.peanutState} Peanuts</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.treeNutState} Tree Nuts</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.fishState} Fish</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.shellFishState} Shellfish</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.gluetenState} Gluten</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.soyState} Soy</Text>
-                    </ListItem> */}
-                  </List>
+                    </List>
                 </Card>
                 </Col>
               <Col style={{ backgroundColor: "#ffffff", height: 500 }}>
@@ -182,52 +155,16 @@ export default class HomeScreen extends React.Component {
                   <CardItem header bordered>
                     <Text>Healthiness</Text>
                   </CardItem>
-                  <List>
-                    <ListItem>
-                      <Text>
-                        {this.state.transFatState}
-                        Trans Fat{" "}
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>
-                        {this.state.refinedGrainState}
-                        Refined Grains
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>
-                        {this.state.syrupState}
-                        Corn Syrup
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>
-                        {this.state.palmOilState}
-                        Palm Oil
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>
-                        {this.state.msgState}
-                        MSG
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>
-                        {this.state.sweetnerState}
-                        Artificial Sweetner
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>
-                        {this.state.sodiumState}
-                        Sodium
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.sugarState} Sugar</Text>
-                    </ListItem>
+                  <List
+                    dataArray={this.state.healthArray}
+                    renderRow={(item, index) => (
+                      <ListItem>
+                        <Body>
+                          <Text>{item}</Text>
+                        </Body>
+                      </ListItem>
+                    )}
+                  >
                   </List>
                 </Card>
                 </Col>
@@ -267,6 +204,58 @@ export default class HomeScreen extends React.Component {
         }).join(' ');
 
         this.setState({ productName:name });
+        
+        var cal = result.product.nutriments.energy_value;
+        try {
+          result.product.nutriments.energy_value.toLowerCase();
+        } catch (ex) {
+          cal = 0;
+        }
+        this.setState({ calories:cal })
+
+        //--------------------
+
+        var healths = [];
+        var hcount = 0;
+        // if (parseInt(result.product.nutriments.trans-fat, 10) !== 0) {
+        //   healths.push("Trans Fat");
+        // }
+        if (parseInt(result.product.nutriments.sugars_value, 10) > 9) {
+          healths.push("Sugar");
+          hcount++;
+        }
+        if (parseInt(result.product.nutriments.sodium_value, 10) > 100 && result.product.nutriments.sodium_unit == 'mg') {
+          healths.push("Sodium");
+          hcount++;
+        }
+        try {
+          if (result.product.ingredients_text_en.toLowerCase().includes("artificial flavor")) {
+            healths.push("Artificial Flavors");
+            hcount += 2;
+          }
+          if (result.product.ingredients_text_en.toLowerCase().includes("corn syrup")) {
+            healths.push("Corn Syrup");
+            hcount += 3;
+          }
+        } catch(ex) {
+          //do nothing
+        }
+
+        if (hcount === 0) {
+          this.setState({healthArray:["None"]});
+          this.setState({recommendationStatus:"Great!"});
+        } else {
+          this.setState({healthArray:healths});
+          if (hcount === 1 || hcount === 2) {
+            this.setState({recommendationStatus:"Good."});
+          } else if (hcount === 3) {
+            this.setState({recommendationStatus:"Ok."});
+          } else {
+            this.setState({recommendationStatus:"Poor."});
+          }
+        }
+
+        //--------------------
       }
     }
   };
