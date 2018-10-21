@@ -61,7 +61,7 @@ export default class HomeScreen extends React.Component {
     msgState: "",
     previousBarcodeData: "",
     resultArray: ["Milk", "Eggs", "Fish", "Soy", "Shellfish", "Peanuts", "Tree Nuts", "Gluten"]
-    
+
   };
 
   async componentWillMount() {
@@ -81,7 +81,7 @@ export default class HomeScreen extends React.Component {
           <Content padder>
           <Grid>
           <Card
-          style={{ backgroundColor: "#ffffff", height: 105, width: 400 }}>
+          style={{ backgroundColor: "#ffffff", height: 91, width: 400 }}>
                   <CardItem header bordered>
                     <Text>Product Name</Text>
                   </CardItem>
@@ -96,7 +96,7 @@ export default class HomeScreen extends React.Component {
           </Grid>
             <Grid>
               <Col
-                style={{ backgroundColor: "#ffffff", height: 105, width: 139 }}
+                style={{ backgroundColor: "#ffffff", height: 91, width: 139 }}
               >
                 <Card>
                   <CardItem header bordered>
