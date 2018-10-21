@@ -35,12 +35,13 @@ export default class HomeScreen extends React.Component {
   state = {
     hasCameraPermission: null,
     alreadyRendered: false,
-    checkMark: "✔️",
+    checkMark: "✅",
     crossMark: "❌",
     smileyFace: "😊",
     neutralFace: "😐",
     sadFace: "🙁",
     calories: "",
+    productName:"",
     recommendationStatus: "",
     eggState: "",
     milkState: "",
@@ -59,7 +60,8 @@ export default class HomeScreen extends React.Component {
     palmOilState: "",
     msgState: "",
     previousBarcodeData: "",
-    resultArray: ["Ananda", "Poudel", "Callan"]
+    resultArray: ["Milk", "Eggs", "Fish", "Soy", "Shellfish", "Peanuts", "Tree Nuts", "Gluten"]
+    
   };
 
   async componentWillMount() {
@@ -77,9 +79,24 @@ export default class HomeScreen extends React.Component {
         </View>
         <Container>
           <Content padder>
+          <Grid>
+          <Card
+          style={{ backgroundColor: "#ffffff", height: 105, width: 400 }}>
+                  <CardItem header bordered>
+                    <Text>Product Name</Text>
+                  </CardItem>
+                  <List>
+                    <ListItem>
+                      <Text>
+                        {this.state.productName}
+                      </Text>
+                    </ListItem>
+                  </List>
+                </Card>
+          </Grid>
             <Grid>
               <Col
-                style={{ backgroundColor: "#ffffff", height: 80, width: 139 }}
+                style={{ backgroundColor: "#ffffff", height: 105, width: 139 }}
               >
                 <Card>
                   <CardItem header bordered>
@@ -115,14 +132,12 @@ export default class HomeScreen extends React.Component {
               </Col>
             </Grid>
             <Grid>
-              <Col
-                style={{ backgroundColor: "#ffffff", height: 420, width: 139 }}
-              >
+            <Col style={{ backgroundColor: "#ffffff", height: 500, width: 140 }}>
                 <Card>
                   <CardItem header bordered>
                     <Text>Allergies </Text>
                   </CardItem>
-                  {/* <List
+                    <List
                     dataArray={this.state.resultArray}
                     renderRow={(item, index) => (
                       <ListItem>
@@ -131,9 +146,8 @@ export default class HomeScreen extends React.Component {
                         </Body>
                       </ListItem>
                     )}
-                  > */}
-                  <List>
-                    <ListItem>
+                    >
+                    {/* <ListItem>
                       <Text>
                         {this.state.eggState}
                         Eggs{" "}
@@ -159,11 +173,11 @@ export default class HomeScreen extends React.Component {
                     </ListItem>
                     <ListItem>
                       <Text>{this.state.soyState} Soy</Text>
-                    </ListItem>
+                    </ListItem> */}
                   </List>
                 </Card>
-              </Col>
-              <Col style={{ backgroundColor: "#ffffff", height: 400 }}>
+                </Col>
+              <Col style={{ backgroundColor: "#ffffff", height: 500 }}>
                 <Card>
                   <CardItem header bordered>
                     <Text>Healthiness</Text>
@@ -216,7 +230,7 @@ export default class HomeScreen extends React.Component {
                     </ListItem>
                   </List>
                 </Card>
-              </Col>
+                </Col>
             </Grid>
           </Content>
         </Container>
@@ -248,7 +262,7 @@ export default class HomeScreen extends React.Component {
           return word.replace(word[0], word[0].toUpperCase());
         }).join(' ');
 
-        this.setState({ recommendationStatus:name });
+        this.setState({ productName:name });
 
         // result.product.allergens_hierarchy.map(all => {
         //   if (all === "en:milk") {
