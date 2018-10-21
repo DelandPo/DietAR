@@ -259,7 +259,7 @@ export default class HomeScreen extends React.Component {
           }).join(' '));
           this.setState({resultArray:temp});
         } else {
-          this.setState({resultArray:[]});
+          this.setState({resultArray:["None"]});
         }
 
         var name = result.product.product_name.toLowerCase().split(' ').map(function(word) {
