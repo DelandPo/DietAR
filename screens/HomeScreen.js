@@ -31,7 +31,10 @@ import FileSystem from "react-native-filesystem";
 // import rp from "request-promise";
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: "DietAR"
+    title: "DietAR",
+    headerStyle: {
+      backgroundColor: "#BAA1A7"
+    }
   };
   state = {
     hasCameraPermission: null,
@@ -97,7 +100,7 @@ export default class HomeScreen extends React.Component {
         <Container>
           <Content padder>
             <Grid>
-              <Card style={{ backgroundColor: "#BAF2BB", width: 350 }}>
+              <Card style={{ backgroundColor: "#BAF2BB", width: 390 }}>
                 <CardItem
                   style={{ backgroundColor: "#BAF2BB" }}
                   header

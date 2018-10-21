@@ -7,6 +7,8 @@ import TouchableView from "./TouchableView";
 
 class PlanAR extends React.Component {
   render() {
+    console.ignoredYellowBox = ["Warning: Each", "Warning: Failed"];
+
     // Setup a basic Graphics View and wrap it in a touchable view that simplifies PanResponder
     return (
       <TouchableView

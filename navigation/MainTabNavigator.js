@@ -34,6 +34,9 @@ const LinksStack = createStackNavigator({
 
 LinksStack.navigationOptions = {
   tabBarLabel: "PlanAR",
+  headerStyle: {
+    backgroundColor: "#BAA1A7"
+  },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -52,6 +55,10 @@ const SettingsStack = createStackNavigator({
 
 SettingsStack.navigationOptions = {
   tabBarLabel: "Settings",
+  style: {
+    backgroundColor: "blue"
+  },
+
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
