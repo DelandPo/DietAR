@@ -61,7 +61,7 @@ export default class HomeScreen extends React.Component {
     msgState: "",
     previousBarcodeData: "",
     resultArray: ["Milk", "Eggs", "Fish", "Soy", "Shellfish", "Peanuts", "Tree Nuts", "Gluten"]
-    
+
   };
 
   async componentWillMount() {
@@ -81,7 +81,7 @@ export default class HomeScreen extends React.Component {
           <Content padder>
           <Grid>
           <Card
-          style={{ backgroundColor: "#ffffff", height: 105, width: 400 }}>
+          style={{ backgroundColor: "#ffffff", height: 91, width: 400 }}>
                   <CardItem header bordered>
                     <Text>Product Name</Text>
                   </CardItem>
@@ -96,7 +96,7 @@ export default class HomeScreen extends React.Component {
           </Grid>
             <Grid>
               <Col
-                style={{ backgroundColor: "#ffffff", height: 105, width: 139 }}
+                style={{ backgroundColor: "#ffffff", height: 91, width: 139 }}
               >
                 <Card>
                   <CardItem header bordered>
@@ -256,7 +256,10 @@ export default class HomeScreen extends React.Component {
         //   `Lenght of Allergens! ${result.product.allergens_hierarchy.length}`
         // );
         var allergens = result.product.allergens_hierarchy;
-        this.setState({resultArray:allergens.map(s => s.substring(3))});
+        var temp = allergens.map(s => s.substring(3).toLowerCase().split(' ').map(function(word) {
+          return word.replace(word[0], word[0].toUpperCase());
+        }).join(' '));
+        this.setState({resultArray:temp});
 
         var name = result.product.product_name.toLowerCase().split(' ').map(function(word) {
           return word.replace(word[0], word[0].toUpperCase());
