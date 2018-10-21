@@ -17,12 +17,12 @@ import { CheckBox } from "react-native-elements";
 export default class ProfileScreen extends Component {
   state = {
     eggCheck: false,
-    milkCheck: true,
+    milkCheck: false,
     peanutCheck: false,
-    treenutCheck: true,
+    treenutCheck: false,
     fishCheck: false,
-    shellfishCheck: true,
-    glutenCheck: true,
+    shellfishCheck: false,
+    glutenCheck: false,
     soyCheck: false
   };
 

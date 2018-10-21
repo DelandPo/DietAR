@@ -153,7 +153,7 @@ export default class HomeScreen extends React.Component {
                 <Card style = {{ backgroundColor: "#F2E2BA"}}>
                   <CardItem style = {{ backgroundColor: "#F2E2BA"}}header bordered>
                     <Text style={{ fontSize: 18, color: "#837E7C" }}>
-                    Ingredients</Text>
+                    Unhealthy Ingredients</Text>
                   </CardItem>
                   <List
                     dataArray={this.state.healthArray}
@@ -225,11 +225,11 @@ export default class HomeScreen extends React.Component {
         //   healths.push("Trans Fat");
         // }
         if (parseInt(result.product.nutriments.sugars_value, 10) > 9) {
-          healths.push("Sugar");
+          healths.push("High Sugar");
           hcount++;
         }
         if (parseInt(result.product.nutriments.sodium_value, 10) > 100 && result.product.nutriments.sodium_unit == 'mg') {
-          healths.push("Sodium");
+          healths.push("High Sodium");
           hcount++;
         }
         try {
