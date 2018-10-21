@@ -40,7 +40,7 @@ export default class HomeScreen extends React.Component {
     smileyFace: "😊",
     neutralFace: "😐",
     sadFace: "🙁",
-    calories: "",
+    calories: "160",
     productName:"",
     recommendationStatus: "",
     eggState: "",
@@ -81,13 +81,14 @@ export default class HomeScreen extends React.Component {
           <Content padder>
           <Grid>
           <Card
-          style={{ backgroundColor: "#ffffff", height: 91, width: 400 }}>
-                  <CardItem header bordered>
-                    <Text>Product Name</Text>
+          style={{ backgroundColor: "#BAF2BB", width: 350 }}>
+                  <CardItem style = {{ backgroundColor: "#BAF2BB"}} header bordered>
+                    <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                    Product Name</Text>
                   </CardItem>
                   <List>
                     <ListItem>
-                      <Text>
+                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
                         {this.state.productName}
                       </Text>
                     </ListItem>
@@ -96,35 +97,31 @@ export default class HomeScreen extends React.Component {
           </Grid>
             <Grid>
               <Col
-                style={{ backgroundColor: "#ffffff", height: 91, width: 139 }}
-              >
-                <Card>
-                  <CardItem header bordered>
-                    <Text>Calories</Text>
+                style={{ backgroundColor: "#ffffff", height: 120, width: 140 }}>
+                <Card style = {{ backgroundColor: "#BAF2D8"}}>
+                  <CardItem style = {{ backgroundColor: "#BAF2D8"}} header bordered>
+                    <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                    Calories</Text>
                   </CardItem>
                   <List>
                     <ListItem>
-                      <Text style={{ fontSize: 30 }}>
+                      <Text style={{ fontSize: 30, color: "#837E7C" }}>
                         {this.state.calories}
                       </Text>
                     </ListItem>
                   </List>
                 </Card>
               </Col>
-              <Col
-                style={{
-                  backgroundColor: "#ffffff",
-                  height: 120
-                }}
-              >
-                <Card>
-                  <CardItem header bordered>
-                    <Text>Recommendation</Text>
+              <Col style={{ backgroundColor: "#ffffff", height: 120 }}>
+                <Card style = {{ backgroundColor: "#BAD7F2"}}>
+                  <CardItem style = {{ backgroundColor: "#BAD7F2"}} header bordered>
+                    <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                    Recommendation</Text>
                   </CardItem>
                   <List>
                     <ListItem>
-                      <Text style={{ fontSize: 30 }}>
-                        {this.state.recommendationStatus}
+                      <Text style={{ fontSize: 30, color: "#837E7C", alignItems: "center" }}>
+                        {this.state.smileyFace}
                       </Text>
                     </ListItem>
                   </List>
@@ -132,17 +129,19 @@ export default class HomeScreen extends React.Component {
               </Col>
             </Grid>
             <Grid>
-            <Col style={{ backgroundColor: "#ffffff", height: 500, width: 140 }}>
-                <Card>
-                  <CardItem header bordered>
-                    <Text>Allergies </Text>
+            <Col style={{ backgroundColor: "#ffffff", width: 350 }}>
+                <Card style = {{ backgroundColor: "#FCF5C7"}}>
+                  <CardItem style = {{ backgroundColor: "#FCF5C7"}} header bordered>
+                    <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                    Allergies </Text>
                   </CardItem>
                     <List
                     dataArray={this.state.resultArray}
                     renderRow={(item, index) => (
                       <ListItem>
                         <Body>
-                          <Text>{item}</Text>
+                          <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                          {item}</Text>
                         </Body>
                       </ListItem>
                     )}
@@ -177,56 +176,60 @@ export default class HomeScreen extends React.Component {
                   </List>
                 </Card>
                 </Col>
-              <Col style={{ backgroundColor: "#ffffff", height: 500 }}>
-                <Card>
-                  <CardItem header bordered>
-                    <Text>Healthiness</Text>
+                </Grid>
+                <Grid>
+              <Col style={{ backgroundColor: "#ffffff" }}>
+                <Card style = {{ backgroundColor: "#F2E2BA"}}>
+                  <CardItem style = {{ backgroundColor: "#F2E2BA"}}header bordered>
+                    <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                    Healthiness</Text>
                   </CardItem>
                   <List>
                     <ListItem>
-                      <Text>
+                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
                         {this.state.transFatState}
                         Trans Fat{" "}
                       </Text>
                     </ListItem>
                     <ListItem>
-                      <Text>
+                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
                         {this.state.refinedGrainState}
                         Refined Grains
                       </Text>
                     </ListItem>
                     <ListItem>
-                      <Text>
+                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
                         {this.state.syrupState}
                         Corn Syrup
                       </Text>
                     </ListItem>
                     <ListItem>
-                      <Text>
+                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
                         {this.state.palmOilState}
                         Palm Oil
                       </Text>
                     </ListItem>
                     <ListItem>
-                      <Text>
+                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
                         {this.state.msgState}
                         MSG
                       </Text>
                     </ListItem>
                     <ListItem>
-                      <Text>
+                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
                         {this.state.sweetnerState}
                         Artificial Sweetner
                       </Text>
                     </ListItem>
                     <ListItem>
-                      <Text>
+                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
                         {this.state.sodiumState}
                         Sodium
                       </Text>
                     </ListItem>
                     <ListItem>
-                      <Text>{this.state.sugarState} Sugar</Text>
+                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                      {this.state.sugarState} Sugar</Text>
                     </ListItem>
                   </List>
                 </Card>
