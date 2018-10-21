@@ -245,8 +245,8 @@ export default class HomeScreen extends React.Component {
       if (result.status === 0) {
         alert("Not a HotDog!");
       } else {
+        var allergens = result.product.allergens_hierarchy;
         try {
-          var allergens = result.product.allergens_hierarchy;
           if (allergens.length !== 0) {
             var temp = allergens.map(s =>
               s
@@ -323,6 +323,52 @@ export default class HomeScreen extends React.Component {
           //do nothing
         }
 
+        var allergList = [];
+        if (this.state.userProfile.result.eggCheck == true) {
+          allergList.push("en:egg");
+          allergList.push("en:eggs");
+        }
+        if (this.state.userProfile.result.milkCheck == true) {
+          allergList.push("en:milk");
+        }
+        if (this.state.userProfile.result.peanutCheck == true) {
+          allergList.push("en:peanuts");
+          allergList.push("en:peanut");
+        }
+        if (this.state.userProfile.result.treenutCheck == true) {
+          allergList.push("en:nut");
+          allergList.push("en:nuts");
+          allergList.push("en:treenuts");
+        }
+        if (this.state.userProfile.result.fishCheck == true) {
+          allergList.push("en:fish");
+        }
+        if (this.state.userProfile.result.shellfishCheck == true) {
+          allergList.push("en:shellfish");
+        }
+        if (this.state.userProfile.result.glutenCheck == true) {
+          allergList.push("en:gluten");
+          allergList.push("en:wheat");
+        }
+        if (this.state.userProfile.result.soyCheck == true) {
+          allergList.push("en:soy");
+          allergList.push("en:soybeans");
+        }
+          
+        var findOne = function (haystack, arr) {
+          return arr.some(function (v) {
+              return haystack.indexOf(v) >= 0;
+          });
+        };
+
+        try {
+          if (findOne(allergens, allergList)) {
+            hcount = -1;
+          }
+        } catch(ex) {
+          //do nothing
+        }
+
         if (hcount === 0) {
           this.setState({ healthArray: ["None"] });
           this.setState({ recommendationStatus: "😃Great" });
@@ -332,8 +378,10 @@ export default class HomeScreen extends React.Component {
             this.setState({ recommendationStatus: "😊Good" });
           } else if (hcount === 3) {
             this.setState({ recommendationStatus: "😐Ok" });
-          } else {
+          } else if (hcount > 3){
             this.setState({ recommendationStatus: "🙁Poor" });
+          } else {
+            this.setState({ recommendationStatus: "Allergic!!" })
           }
         }
 
