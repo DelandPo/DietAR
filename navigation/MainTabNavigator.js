@@ -28,19 +28,23 @@ HomeStack.navigationOptions = {
   )
 };
 
-// const LinksStack = createStackNavigator({
-//   Links: LinksScreen,
-// });
+const LinksStack = createStackNavigator({
+  Links: LinksScreen
+});
 
-// LinksStack.navigationOptions = {
-//   tabBarLabel: 'Links',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
-//     />
-//   ),
-// };
+LinksStack.navigationOptions = {
+  tabBarLabel: "PlanAR",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === "ios"
+          ? `ios-link${focused ? "" : "-outline"}`
+          : "md-link"
+      }
+    />
+  )
+};
 
 const SettingsStack = createStackNavigator({
   Settings: SettingsScreen
@@ -62,6 +66,6 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  // LinksStack,
+  LinksStack,
   SettingsStack
 });
