@@ -60,8 +60,8 @@ export default class HomeScreen extends React.Component {
     palmOilState: "",
     msgState: "",
     previousBarcodeData: "",
-    resultArray: ["Milk", "Eggs", "Fish", "Soy", "Shellfish", "Peanuts", "Tree Nuts", "Gluten"]
-
+    resultArray: ["Milk", "Eggs", "Fish", "Soy", "Shellfish", "Peanuts", "Tree Nuts", "Gluten"],
+    healthArray: ["Trans Fat", "Corn Syrup", "Artificial Flavors", "Sodium", "Sugar"]
   };
 
   async componentWillMount() {
@@ -146,34 +146,7 @@ export default class HomeScreen extends React.Component {
                       </ListItem>
                     )}
                     >
-                    {/* <ListItem>
-                      <Text>
-                        {this.state.eggState}
-                        Eggs{" "}
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.milkState} Milk</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.peanutState} Peanuts</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.treeNutState} Tree Nuts</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.fishState} Fish</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.shellFishState} Shellfish</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.gluetenState} Gluten</Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text>{this.state.soyState} Soy</Text>
-                    </ListItem> */}
-                  </List>
+                    </List>
                 </Card>
                 </Col>
                 </Grid>
@@ -184,53 +157,16 @@ export default class HomeScreen extends React.Component {
                     <Text style={{ fontSize: 18, color: "#837E7C" }}>
                     Healthiness</Text>
                   </CardItem>
-                  <List>
-                    <ListItem>
-                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
-                        {this.state.transFatState}
-                        Trans Fat{" "}
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
-                        {this.state.refinedGrainState}
-                        Refined Grains
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
-                        {this.state.syrupState}
-                        Corn Syrup
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
-                        {this.state.palmOilState}
-                        Palm Oil
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
-                        {this.state.msgState}
-                        MSG
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
-                        {this.state.sweetnerState}
-                        Artificial Sweetner
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
-                        {this.state.sodiumState}
-                        Sodium
-                      </Text>
-                    </ListItem>
-                    <ListItem>
-                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
-                      {this.state.sugarState} Sugar</Text>
-                    </ListItem>
+                  <List
+                    dataArray={this.state.healthArray}
+                    renderRow={(item, index) => (
+                      <ListItem>
+                        <Body>
+                          <Text style={{ fontSize: 18, color: "#837E7C" }}>{item}</Text>
+                        </Body>
+                      </ListItem>
+                    )}
+                  >
                   </List>
                 </Card>
                 </Col>
@@ -255,26 +191,73 @@ export default class HomeScreen extends React.Component {
       if (result.status === 0) {
         alert("Not a HotDog!");
       } else {
-        // alert(
-        //   `Lenght of Allergens! ${result.product.allergens_hierarchy.length}`
-        // );
         var allergens = result.product.allergens_hierarchy;
-        var temp = allergens.map(s => s.substring(3).toLowerCase().split(' ').map(function(word) {
-          return word.replace(word[0], word[0].toUpperCase());
-        }).join(' '));
-        this.setState({resultArray:temp});
+        if (allergens.length !== 0) {
+          var temp = allergens.map(s => s.substring(3).toLowerCase().split(' ').map(function(word) {
+            return word.replace(word[0], word[0].toUpperCase());
+          }).join(' '));
+          this.setState({resultArray:temp});
+        } else {
+          this.setState({resultArray:["None"]});
+        }
 
         var name = result.product.product_name.toLowerCase().split(' ').map(function(word) {
           return word.replace(word[0], word[0].toUpperCase());
         }).join(' ');
 
         this.setState({ productName:name });
+        
+        var cal = result.product.nutriments.energy_value;
+        try {
+          result.product.nutriments.energy_value.toLowerCase();
+        } catch (ex) {
+          cal = 0;
+        }
+        this.setState({ calories:cal })
 
-        // result.product.allergens_hierarchy.map(all => {
-        //   if (all === "en:milk") {
-        //     this.setState({ milkState: "✔️" });
-        //   }
-        // });
+        //--------------------
+
+        var healths = [];
+        var hcount = 0;
+        // if (parseInt(result.product.nutriments.trans-fat, 10) !== 0) {
+        //   healths.push("Trans Fat");
+        // }
+        if (parseInt(result.product.nutriments.sugars_value, 10) > 9) {
+          healths.push("Sugar");
+          hcount++;
+        }
+        if (parseInt(result.product.nutriments.sodium_value, 10) > 100 && result.product.nutriments.sodium_unit == 'mg') {
+          healths.push("Sodium");
+          hcount++;
+        }
+        try {
+          if (result.product.ingredients_text_en.toLowerCase().includes("artificial flavor")) {
+            healths.push("Artificial Flavors");
+            hcount += 2;
+          }
+          if (result.product.ingredients_text_en.toLowerCase().includes("corn syrup")) {
+            healths.push("Corn Syrup");
+            hcount += 3;
+          }
+        } catch(ex) {
+          //do nothing
+        }
+
+        if (hcount === 0) {
+          this.setState({healthArray:["None"]});
+          this.setState({recommendationStatus:"Great!"});
+        } else {
+          this.setState({healthArray:healths});
+          if (hcount === 1 || hcount === 2) {
+            this.setState({recommendationStatus:"Good."});
+          } else if (hcount === 3) {
+            this.setState({recommendationStatus:"Ok."});
+          } else {
+            this.setState({recommendationStatus:"Poor."});
+          }
+        }
+
+        //--------------------
       }
     }
   };
