@@ -40,7 +40,7 @@ export default class HomeScreen extends React.Component {
     smileyFace: "😊",
     neutralFace: "😐",
     sadFace: "🙁",
-    calories: "160",
+    calories: "",
     productName:"",
     recommendationStatus: "",
     eggState: "",
@@ -80,24 +80,22 @@ export default class HomeScreen extends React.Component {
         <Container>
           <Content padder>
           <Grid>
-          <Card
-          style={{ backgroundColor: "#BAF2BB", width: 350 }}>
-                  <CardItem style = {{ backgroundColor: "#BAF2BB"}} header bordered>
+            <Card style={{ backgroundColor: "#BAF2BB", width: 350 }}>
+                <CardItem style = {{ backgroundColor: "#BAF2BB"}} header bordered>
                     <Text style={{ fontSize: 18, color: "#837E7C" }}>
                     Product Name</Text>
-                  </CardItem>
-                  <List>
-                    <ListItem>
-                      <Text style={{ fontSize: 18, color: "#837E7C" }}>
-                        {this.state.productName}
-                      </Text>
-                    </ListItem>
-                  </List>
-                </Card>
+                </CardItem>
+                <List>
+                  <ListItem>
+                    <Text style={{ fontSize: 18, color: "#837E7C" }}>
+                      {this.state.productName}
+                    </Text>
+                  </ListItem>
+                </List>
+            </Card>
           </Grid>
             <Grid>
-              <Col
-                style={{ backgroundColor: "#ffffff", height: 120, width: 140 }}>
+              <Col style={{ backgroundColor: "#ffffff", width: 140 }}>
                 <Card style = {{ backgroundColor: "#BAF2D8"}}>
                   <CardItem style = {{ backgroundColor: "#BAF2D8"}} header bordered>
                     <Text style={{ fontSize: 18, color: "#837E7C" }}>
@@ -112,7 +110,7 @@ export default class HomeScreen extends React.Component {
                   </List>
                 </Card>
               </Col>
-              <Col style={{ backgroundColor: "#ffffff", height: 120 }}>
+              <Col style={{ backgroundColor: "#ffffff"}}>
                 <Card style = {{ backgroundColor: "#BAD7F2"}}>
                   <CardItem style = {{ backgroundColor: "#BAD7F2"}} header bordered>
                     <Text style={{ fontSize: 18, color: "#837E7C" }}>
@@ -121,7 +119,7 @@ export default class HomeScreen extends React.Component {
                   <List>
                     <ListItem>
                       <Text style={{ fontSize: 30, color: "#837E7C", alignItems: "center" }}>
-                        {this.state.smileyFace}
+                        {this.state.recommendationStatus}
                       </Text>
                     </ListItem>
                   </List>
@@ -129,11 +127,11 @@ export default class HomeScreen extends React.Component {
               </Col>
             </Grid>
             <Grid>
-            <Col style={{ backgroundColor: "#ffffff", width: 350 }}>
-                <Card style = {{ backgroundColor: "#FCF5C7"}}>
-                  <CardItem style = {{ backgroundColor: "#FCF5C7"}} header bordered>
+            <Col style={{ backgroundColor: "#ffffff" }}>
+                <Card style = {{ backgroundColor: "#F2BAC9"}}>
+                  <CardItem style = {{ backgroundColor: "#F2BAC9"}} header bordered>
                     <Text style={{ fontSize: 18, color: "#837E7C" }}>
-                    Allergies </Text>
+                    Allergens </Text>
                   </CardItem>
                     <List
                     dataArray={this.state.resultArray}
@@ -155,7 +153,7 @@ export default class HomeScreen extends React.Component {
                 <Card style = {{ backgroundColor: "#F2E2BA"}}>
                   <CardItem style = {{ backgroundColor: "#F2E2BA"}}header bordered>
                     <Text style={{ fontSize: 18, color: "#837E7C" }}>
-                    Healthiness</Text>
+                    Ingredients</Text>
                   </CardItem>
                   <List
                     dataArray={this.state.healthArray}
@@ -245,15 +243,15 @@ export default class HomeScreen extends React.Component {
 
         if (hcount === 0) {
           this.setState({healthArray:["None"]});
-          this.setState({recommendationStatus:"Great!"});
+          this.setState({recommendationStatus:"😃Great"});
         } else {
           this.setState({healthArray:healths});
           if (hcount === 1 || hcount === 2) {
-            this.setState({recommendationStatus:"Good."});
+            this.setState({recommendationStatus:"😊Good"});
           } else if (hcount === 3) {
-            this.setState({recommendationStatus:"Ok."});
+            this.setState({recommendationStatus:"😐Ok"});
           } else {
-            this.setState({recommendationStatus:"Poor."});
+            this.setState({recommendationStatus:"🙁Poor"});
           }
         }
 
